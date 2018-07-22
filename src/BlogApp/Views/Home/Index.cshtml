@@ -1,0 +1,55 @@
+﻿@model BlogApp.Models.PostListModel
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel-body">
+                    @foreach (var post in Model.Posts)
+                    {
+                        @Html.Partial("Partials/Post", post)
+                        <hr />
+                    }
+                    <ul class="pager">
+                        @if (Model.CanPrevious)
+                        {
+                            <li class="previous">
+                                <a asp-controller="Post" asp-action="All" asp-route-Page="@(Model.PageNumber-1)">&larr; Older</a>
+                            </li>
+                        }
+                        @if (Model.CanNext)
+                        {
+                            <li class="next">
+                                <a asp-controller="Post" asp-action="All" asp-route-Page="@(Model.PageNumber+1)">Newer &rarr;</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                @Html.Partial("Partials/Sidebar")
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@*
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <a asp-action="Posts">
+                        <img style="border-radius: 50%;" height="250" width="250" class="img-responsive" src="~/Blog/img/profile.jpg" alt="">
+                    </a>
+                    <div class="intro-text">
+                        <span class="name">Baris Ceviz</span>
+                        <span class="skills">Software Developer - Music Maker</span>
+                        <hr class="star-light">
+                        @Html.Partial("Partials/SocialBox")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+*@
+

@@ -1,0 +1,23 @@
+﻿@using System.Globalization
+@model BlogApp.Models.PostModel
+<article>
+    <h1>
+        <a asp-action="Post" asp-route-Id="@Model.FriendlyUrl">@Model.Title</a>
+    </h1>
+    <p class="lead">
+        by <a asp-action="Author" asp-route-Id="@Model.AuthorId">@Model.AuthorNameSurname</a>
+    </p>
+    <p style="font-size:1.5em">
+        <span class="glyphicon glyphicon-time"></span> Posted on @Model.CreatedDate.ToString("dddd dd MMMM yyyy", new CultureInfo("en-US"))
+    </p>
+    <hr>
+    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        <img class="img-responsive" src="@Model.ImageUrl" alt="@Model.Title">
+    }
+    <hr>
+    <p style="font-size:1.5em">
+        @Model.Description
+    </p>
+    <a class="btn btn-primary" asp-action="Post" asp-route-Id="@Model.FriendlyUrl">Devamını Oku... <span class="glyphicon glyphicon-chevron-right"></span></a>
+</article>

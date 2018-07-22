@@ -1,0 +1,19 @@
+﻿@*<section id="categorybar">
+        <ul id="cateogryList"></ul>
+
+        <script>
+            $.get(window.location.origin + '/api/blog/categories', function (result) {
+                console.log(result);
+                var categories = $("#categories");
+                for (var i = 0; i < result.length; i++) {
+                    var item = result[i];
+                    console.log(item);
+                    var str = "<li><a href='/Category/" + item.categoryId + "'>" + item.name + "</a></li>";
+                    $("#cateogryList").append(str);
+                    //categories.append($("li").append($("a").attr("href", "/Category/" + item.CategoryId).text(item.Name)));
+                }
+            });
+        </script>
+
+    </section>
+*@

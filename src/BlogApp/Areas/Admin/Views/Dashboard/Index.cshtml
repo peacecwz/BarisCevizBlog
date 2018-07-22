@@ -1,0 +1,107 @@
+﻿@using BlogApp.Areas.Admin.Models
+@model DashboardModel
+@{
+    ViewBag.Title = "Yönetim Paneli";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Yönetim Paneli</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-tasks fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@Model.PostCount</div>
+                        <div>Yazılar</div>
+                    </div>
+                </div>
+            </div>
+            @foreach (var post in Model.Posts)
+            {
+                <div class="panel-body">
+                    @((post.IsDraft) ? Html.Raw("") : Html.Raw(""))
+                    @if (post.IsDraft)
+                    {
+                        <span class='alert-danger'>Taslak</span>
+                        <a href="@Url.Action("Edit", "Posts", new {id=post.Id})">
+                            @post.Title
+                        </a>
+                    }
+                    else
+                    {
+                        <span class='alert-success'>Yayınlandı</span>
+                        <a target="_blank" href="@Url.Action("Post", "Home", new {area="", id=post.Id})">
+                            @post.Title
+                        </a>
+                    }
+                </div>
+            }
+            <a href="@Url.Action("Index","Posts")">
+                <div class="panel-footer">
+                    <span class="pull-left">Detaylar...</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-comments fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@Model.CommentCount</div>
+                        <div>Yorumlar</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Detaylar...</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-user fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@Model.GuestCount</div>
+                        <div>Günlük Ziyaretçiler</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Detaylar...</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+}
+
+@section Styles{
+
+}

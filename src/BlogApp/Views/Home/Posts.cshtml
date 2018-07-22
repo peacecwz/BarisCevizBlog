@@ -1,0 +1,32 @@
+﻿@model BlogApp.Models.PostListModel
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                @foreach (var post in Model.Posts)
+                {
+                    @Html.Partial("Partials/Post", post)
+                    <hr />
+                }
+                <ul class="pager">
+                    @if (Model.CanPrevious)
+                    {
+                        <li class="previous">
+                            <a asp-action="Posts" asp-route-Page="@(Model.PageNumber-1)">&larr; Older</a>
+                        </li>
+                    }
+                    @if (Model.CanNext)
+                    {
+                        <li class="next">
+                            <a asp-action="Posts" asp-route-Page="@(Model.PageNumber+1)">Newer &rarr;</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="col-md-4">
+                @Html.Partial("Partials/Sidebar")
+            </div>
+        </div>
+    </div>
+
+</section>

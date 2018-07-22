@@ -1,0 +1,57 @@
+﻿@model BlogApp.Areas.Admin.Models.CategoryModel
+@{
+    bool IsError = false;
+    bool IsMessage = false;
+    string Message = "", Error = "";
+    ViewBag.Title = "Kategori Güncelle";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Kategori Güncelle</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Yeni Kategori Güncelle
+            </div>
+            <div class="panel-body">
+                @if (IsError)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        @Error
+                    </div>
+                }
+                else if (IsMessage)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        @Message
+                    </div>
+                }
+                <div class="row">
+                    @using (Html.BeginForm("Edit", "Categories", new { area = "Admin" }, FormMethod.Post, true, new { role = "form", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.Id)
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => Model.Name)
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = Html.DisplayNameFor(model => model.Name) })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CategoryImage)
+                                <input type="file" name="CategoryImage" id="CategoryImage" class="form-control" />
+                            </div>
+
+                            <button type="submit" class="btn btn-success">Kategoriyi Güncelle</button>
+                            <button type="reset" class="btn btn-danger">İptal</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

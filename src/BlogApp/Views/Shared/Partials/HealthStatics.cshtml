@@ -1,0 +1,43 @@
+﻿@{
+    var Model = Html.GetHealthStatics();
+}
+<div class="wall">
+    <h3>Haftalık Adım Sayısı</h3>
+    <div class="row" style="display:flex;justify-content:center;align-items:center;">
+        <div class="StepsImpressionsModule-chartArea">
+            <div class="StepsImpressionsModule-chart">
+                @foreach (var step in Model.Steps)
+            {
+                    <div class="StepsImpressionsModule-chartBar">
+                        <div style="height:@(step.HealthHeight)px;"></div>
+                        <div class="StepsImpressionsModule-promoted" style="height:0.0px;"></div>
+                        <div class="StepsImpressionsModule-organic" style="height:@(step.HealthValue)px;"></div>
+                        <div class="StepsImpressionsModule-barchart-tooltip StepsImpressionsModule-barchart-tooltip-opensleft">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td colspan="3" class="StepsImpressionsModule-barchart-tooltipdate">@step.Date</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="StepsImpressionsModule-barchart-tooltipcolor">
+                                            <div class="StepsImpressionsModule-barchart-colorfill organic">&nbsp;</div>
+                                        </td>
+                                        <td class="StepsImpressionsModule-barchart-tooltipvalue">@step.Step adım</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="StepsImpressionsModule-xAxis"></div>
+            <div class="StepsImpressionsModule-text">
+                <div class="u-floatLeft">@Model.StartDate</div>
+                <div class="u-floatRight">@Model.EndDate</div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,75 @@
+﻿@using System.Globalization
+@using BlogApp
+@using BlogApp.Helpers
+@model BlogApp.Models.PageModel
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="panel-heading">
+                    <h1>
+                        @Model.Title
+                    </h1>
+                </div>
+                <div class="panel-body post-content">
+                    <p>
+                        <span class="glyphicon glyphicon-time"></span> Posted on @Model.CreatedDate.ToString("dddd dd MMMM yyyy", new CultureInfo("en-US"))
+                    </p>
+
+                    <hr>
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img class="img-responsive" src="@Model.ImageUrl" alt="@Model.Title">
+                        <hr>
+                    }
+                    @Html.Raw(Model.Content)
+                </div>
+                <div class="panel-footer">
+                    <div id="disqus_thread"></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                @Html.Partial("Partials/Sidebar")
+            </div>
+        </div>
+        <hr>
+    </div>
+</section>
+
+@section Styles{
+    <link rel="stylesheet" href="~/Blog/css/hijs.css">
+}
+
+@section Scripts{
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+    <script id="dsq-count-scr" src="//http-barisceviz-com.disqus.com/count.js" async></script>
+    <script>
+        var disqus_config = function () {
+            this.page.url = '@Url.FullPathAction("Post","Home",new { id =Model.FriendlyUrl })';
+            this.page.identifier = '@Model.PostId.ToString()';
+        };
+
+
+        (function () {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://http-barisceviz-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <script>
+        $('pre').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+    </script>
+}
+
+@section Meta{
+
+    @Html.CreateFacebookMeta(Html.GetFullUrl("Post", Model.FriendlyUrl), Model.Title, Html.Raw(Model.Description).ToString(), Model.ImageUrl)
+    @Html.CreateTwitterMeta("PeaceCwz", Model.Title, Html.Raw(Model.Description).ToString(), Model.ImageUrl)
+}

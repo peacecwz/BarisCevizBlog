@@ -1,0 +1,18 @@
+﻿@model List<BlogApp.Models.PostModel>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                @foreach (var post in Model)
+                {
+                    @Html.Partial("Partials/Post", post)
+                    <hr />
+                }
+            </div>
+            <div class="col-md-4">
+                @Html.Partial("Partials/Sidebar")
+            </div>
+        </div>
+    </div>
+
+</section>
